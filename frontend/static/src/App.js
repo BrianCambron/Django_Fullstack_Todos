@@ -60,11 +60,14 @@ class App extends Component{
         isComplete: true,
       })
     })
-    .then(response => response)
+    .then(response => response.json())
     .then(data => {
-      const todos = [...this.state.todos]
-      const isComplete = todos.map(todo => todo.isComplete)
-      console.log(isComplete);
+      console.log(data);
+      const todos = [...this.state.todos];
+      const index = todos.findIndex(todo => todo.id === id);
+      todos[index] = data;
+      this.setState({todos})
+
     })
     .catch(error => console.log('Error:', error));
   }
