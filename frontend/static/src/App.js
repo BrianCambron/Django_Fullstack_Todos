@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import TodoForm from './components/TodoForm'
-import TodoList from './components/TodoList'
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
+import Cookies from 'js-cookie';
 
 class App extends Component{
   constructor(props){
@@ -21,9 +22,11 @@ class App extends Component{
 
   addTodo(event, data){
     event.preventDefault();
+    const csrftoken = Cookies.get('csrftoken');
     fetch('api/v1/', {
       method: 'POST',
       headers: {
+        'X-CSRFToken': csrftoken,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
